@@ -49,6 +49,8 @@ module "nifi" {
 | user | LDAP user to use for connections | `string` | n/a | yes |
 | user\_groups | User groups to assign to instance | `list(string)` | `[]` | no |
 | volume\_size | The volume size to use in GB | `number` | `50` | no |
+| nifi\_jvm\_xms | Nifi JVM Heap Init | `string` | `8g` | no |
+| nifi\_jvm\_xmx | Nifi JVM Heap Max | `string` | `16g` | no |
 
 ## Outputs
 
