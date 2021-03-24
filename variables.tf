@@ -4,6 +4,12 @@ variable "instance_type" {
   default     = "t3.xlarge"
 }
 
+variable "host_name" {
+  type        = string
+  default     = ""
+  description = "The middlename for your host default is a random number"
+}
+
 variable "volume_size" {
   description = "The volume size to use in GB"
   type        = number
@@ -28,13 +34,13 @@ variable "user" {
   type        = string
 }
 
-variable "bastion_host" {
-  description = "Bastion host to use for SSH connections"
+variable "private_key" {
+  description = "Private key for SSH access"
   type        = string
 }
 
-variable "private_key" {
-  description = "Private key for SSH access"
+variable "bastion_host" {
+  description = "Bastion host to use for SSH connections"
   type        = string
 }
 
@@ -70,25 +76,5 @@ variable "docker_password" {
 variable "docker_registry" {
   description = "Docker Registry host"
   type        = string
-  default     = ""
+  default     = "docker.na1.hsdp.io"
 }
-//
-//variable "nifi_trust_store" {
-//  description = "Trust store for SSL"
-//  type        = object (
-//    {
-//      truststore  = string ,
-//      password    = string
-//    }
-//  )
-//}
-//
-//variable "nifi_key_store" {
-//  description = "A list of key stores"
-//  type        = object(
-//    {
-//      keystore  = string ,
-//      password  = string
-//    }
-//  )
-//}
