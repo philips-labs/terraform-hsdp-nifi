@@ -26,7 +26,7 @@ resource "hsdp_container_host_exec" "instance" {
 
   triggers = {
     instance_ids   =  hsdp_container_host.nifi.id
-    bash           = file("${path.module}/scripts/bootstrap-nifi.sh")
+    bash           = file("${path.module}/scripts/bootstrap-nifi.sh.tmpl")
   }
 
   bastion_host = var.bastion_host
