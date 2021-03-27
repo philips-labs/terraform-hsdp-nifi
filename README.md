@@ -22,7 +22,7 @@ module "nifi" {
 | Name | Version |
 |------|---------|
 | terraform | >= 0.14.0 |
-| hsdp | >= 0.6.6 |
+| hsdp | >= 0.13.5 |
 | null | >= 2.1.1 |
 | random | >= 2.2.1 |
 
@@ -30,7 +30,7 @@ module "nifi" {
 
 | Name | Version |
 |------|---------|
-| hsdp | >= 0.6.6 |
+| hsdp | >= 0.13.5 |
 | null | >= 2.1.1 |
 | random | >= 2.2.1 |
 
@@ -51,6 +51,7 @@ module "nifi" {
 | volume\_size | The volume size to use in GB | `number` | `50` | no |
 | nifi\_jvm\_xms | Nifi JVM Heap Init | `string` | `8g` | no |
 | nifi\_jvm\_xmx | Nifi JVM Heap Max | `string` | `16g` | no |
+| host\_name | Nifi host middle name the host name will be `nifi-hostname.dev` | `string` | random number | no |
 
 ## Outputs
 
@@ -59,6 +60,10 @@ module "nifi" {
 | nifi\_nodes | Container Host IP addresses of NiFi instances |
 | nifi\_port | Port where you can reach Nifi |
 | nifi\_name\_node | Name of NiFi instance |
+
+# Contact / Getting help
+
+Krishna Prasad Srinivasan <krishna.prasad.srinivasan@philips.com>
 
 # License
 
