@@ -26,7 +26,7 @@ resource "hsdp_container_host_exec" "instance" {
 
   triggers = {
     instance_ids   =  hsdp_container_host.nifi.id
-    bash           = file("${path.module}/scripts/bootstrap-nifi.sh")
+    bash           = file("${path.module}/scripts/bootstrap-nifi.sh.tmpl")
   }
 
   bastion_host = var.bastion_host
@@ -35,14 +35,22 @@ resource "hsdp_container_host_exec" "instance" {
   private_key  = var.private_key
 
   file {
-    source      = "${path.module}/scripts/bootstrap-nifi.sh"
+    content      = templatefile("${path.module}/scripts/bootstrap-nifi.sh.tmpl", {
+      docker_username = var.docker_username
+      docker_password = var.docker_password
+      docker_image = var.docker_image
+      docker_registry = var.docker_registry
+      nifi_jvm_xms = var.nifi_jvm_xms
+      nifi_jvm_xmx = var.nifi_jvm_xmx
+      private_ip = hsdp_container_host.nifi.private_ip
+    })
     destination = "/home/${var.user}/bootstrap-nifi.sh"
+    permissions = "0700"
   }
 
 
   # Bootstrap script called with private_ip of each node in the cluster
   commands = [
-    "chmod +x /home/${var.user}/bootstrap-nifi.sh",
-    "/home/${var.user}/bootstrap-nifi.sh -x ${hsdp_container_host.nifi.private_ip} --docker-image ${var.docker_image} --docker-username ${var.docker_username} --docker-password ${var.docker_password} --docker-registry ${var.docker_registry} --nifi-jvm-xms ${var.nifi_jvm_xms} --nifi-jvm-xmx ${var.nifi_jvm_xmx}"
+    "/home/${var.user}/bootstrap-nifi.sh"
   ]
 }
