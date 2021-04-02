@@ -48,10 +48,12 @@ module "nifi" {
 | private\_key | Private key for SSH access | `string` | n/a | yes |
 | user | LDAP user to use for connections | `string` | n/a | yes |
 | user\_groups | User groups to assign to instance | `list(string)` | `[]` | no |
+| security\_groups| Cartel security groups to add the instance to | `list(string)` | `["analytics"]` | no |
 | volume\_size | The volume size to use in GB | `number` | `50` | no |
 | nifi\_jvm\_xms | Nifi JVM Heap Init | `string` | `8g` | no |
 | nifi\_jvm\_xmx | Nifi JVM Heap Max | `string` | `16g` | no |
 | host\_name | Nifi host middle name the host name will be `nifi-hostname.dev` | `string` | random number | no |
+| nifi\_port | Nifi web application port | `string` | `8282` | no |
 
 ## Outputs
 
