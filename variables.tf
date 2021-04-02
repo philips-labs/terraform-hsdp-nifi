@@ -78,3 +78,16 @@ variable "docker_registry" {
   type        = string
   default     = "docker.na1.hsdp.io"
 }
+
+variable "security_groups" {
+  description = "The security groups attached to the nifi instance."
+  type        = list(string)
+  default     = ["analytics"]
+}
+
+variable "nifi_port" {
+  description = "The port to be used for nifi"
+  type        = string
+  dedefault   = "8282"
+  
+}

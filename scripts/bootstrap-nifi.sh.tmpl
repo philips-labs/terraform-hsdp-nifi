@@ -28,7 +28,7 @@ start_nifi() {
     -v 'flowfile_repository:/opt/nifi/nifi-current/flowfile_repository' \
     -v 'content_repository:/opt/nifi/nifi-current/content_repository' \
     -v "data:/opt/nifi/nifi-current/data" \
-    -p 8282:8080 \
+    -p ${port}:8080 \
     "${docker_image}"
 }
 
