@@ -88,6 +88,6 @@ variable "security_groups" {
 variable "nifi_port" {
   description = "The port to be used for nifi"
   type        = string
-  dedefault   = "8282"
+  default     = "8282"
   
 }
