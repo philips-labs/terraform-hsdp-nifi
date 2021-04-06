@@ -10,5 +10,5 @@ output "nifi_name_node" {
 
 output "nifi_port" {
   description = "Port where you can reach Nifi"
-  value       = "8080"
+  value       = var.nifi_port
 }
