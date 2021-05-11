@@ -25,8 +25,8 @@ resource "hsdp_container_host" "nifi" {
 resource "hsdp_container_host_exec" "instance" {
 
   triggers = {
-    instance_ids   =  hsdp_container_host.nifi.id
-    bash           = file("${path.module}/scripts/bootstrap-nifi.sh.tmpl")
+    instance_ids = hsdp_container_host.nifi.id
+    bash         = file("${path.module}/scripts/bootstrap-nifi.sh.tmpl")
   }
 
   bastion_host = var.bastion_host
@@ -36,15 +36,16 @@ resource "hsdp_container_host_exec" "instance" {
 
 
   file {
-    content      = templatefile("${path.module}/scripts/bootstrap-nifi.sh.tmpl", {
-      docker_username   = var.docker_username
-      docker_password   = var.docker_password
-      docker_image      = var.docker_image
-      docker_registry   = var.docker_registry
-      nifi_jvm_xms      = var.nifi_jvm_xms
-      nifi_jvm_xmx      = var.nifi_jvm_xmx
-      private_ip        = hsdp_container_host.nifi.private_ip
-      port              = var.nifi_port
+    content = templatefile("${path.module}/scripts/bootstrap-nifi.sh.tmpl", {
+      docker_username      = var.docker_username
+      docker_password      = var.docker_password
+      docker_image         = var.docker_image
+      docker_registry      = var.docker_registry
+      nifi_jvm_xms         = var.nifi_jvm_xms
+      nifi_jvm_xmx         = var.nifi_jvm_xmx
+      private_ip           = hsdp_container_host.nifi.private_ip
+      port                 = var.nifi_port
+      jmx_exporter_version = var.jmx_exporter_version
     })
     destination = "/home/${var.user}/bootstrap-nifi.sh"
     permissions = "0700"

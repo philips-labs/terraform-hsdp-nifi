@@ -89,5 +89,10 @@ variable "nifi_port" {
   description = "The port to be used for nifi"
   type        = string
   default     = "8282"
-  
+}
+
+variable "jmx_exporter_version" {
+  description = "Deploy jmx exporters for Prometheus as javaagent"
+  type        = string
+  default     = "0.15.0"
 }

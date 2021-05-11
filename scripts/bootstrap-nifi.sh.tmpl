@@ -23,12 +23,15 @@ start_nifi() {
     --env NIFI_WEB_HTTP_PORT=8080 \
     --env NIFI_JVM_HEAP_INIT="${nifi_jvm_xms}" \
     --env NIFI_JVM_HEAP_MAX="${nifi_jvm_xmx}" \
+    --env BOOTSTRAP_DEBUG_PARAMS='-javaagent:/opt/nifi/jmx/jmx_export_agent.jar=10001:/opt/nifi/jmx/config.yml' \
     -v 'database_repository:/opt/nifi/nifi-current/database_repository' \
     -v 'provenance_repository:/opt/nifi/nifi-current/provenance_repository' \
     -v 'flowfile_repository:/opt/nifi/nifi-current/flowfile_repository' \
     -v 'content_repository:/opt/nifi/nifi-current/content_repository' \
     -v "data:/opt/nifi/nifi-current/data" \
+    -v "jmx_exporter:/opt/nifi/jmx" \
     -p ${port}:8080 \
+    -p 10001:10001 \
     "${docker_image}"
 }
 
@@ -38,7 +41,19 @@ docker_login(){
   fi
 }
 
+download_jmx_agent(){
+  echo "Download JMX Prometheus JavaAgent ${jmx_exporter_version}"
+  mkdir -p jmx
+  mv config.yml ./jmx
+  cd jmx
+  curl -s -o jmx_export_agent.jar "https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/${jmx_exporter_version}/jmx_prometheus_javaagent-${jmx_exporter_version}.jar"
+  docker volume rm jmx_exporter
+  docker volume create --driver local --name jmx_exporter --opt type=none --opt device=`pwd` --opt o=uid=root,gid=root --opt o=bind
+  cd ..
+}
+
 kill_nifi
+download_jmx_agent
 create_volume
 docker_login
 start_nifi
