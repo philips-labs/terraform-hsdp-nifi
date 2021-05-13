@@ -51,6 +51,10 @@ resource "hsdp_container_host_exec" "instance" {
     permissions = "0700"
   }
 
+  file {
+    source      = "${path.module}/scripts/config.yml"
+    destination = "/home/${var.user}/config.yml"
+  }
 
   # Bootstrap script called with private_ip of each node in the cluster
   commands = [
