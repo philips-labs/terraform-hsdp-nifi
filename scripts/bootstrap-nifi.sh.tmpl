@@ -43,7 +43,7 @@ docker_login(){
 
 download_jmx_agent(){
   echo "Download JMX Prometheus JavaAgent ${jmx_exporter_version}"
-  mkdir -p jmx
+  mkdir -p -m 775 jmx
   mv config.yml ./jmx
   cd jmx
   curl -s -o jmx_export_agent.jar "https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/${jmx_exporter_version}/jmx_prometheus_javaagent-${jmx_exporter_version}.jar"
