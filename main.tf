@@ -4,6 +4,7 @@ resource "random_id" "id" {
 
 resource "hsdp_container_host" "nifi" {
   user          = var.user
+  private_key   = var.private_key
   name          = var.host_name == "" ? "nifi-${random_id.id.hex}.dev" : "nifi-${var.host_name}.dev"
   iops          = var.iops
   volumes       = 1
@@ -12,6 +13,11 @@ resource "hsdp_container_host" "nifi" {
 
   user_groups     = var.user_groups
   security_groups = var.security_groups
+
+  tags = {
+    created_by = "terraform"
+    owner      = var.user
+  }
 
   lifecycle {
     ignore_changes = [
