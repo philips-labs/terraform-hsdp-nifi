@@ -49,6 +49,7 @@ download_jmx_agent(){
   curl -s -o jmx_export_agent.jar "https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/${jmx_exporter_version}/jmx_prometheus_javaagent-${jmx_exporter_version}.jar"
   docker volume rm jmx_exporter
   docker volume create --driver local --name jmx_exporter --opt type=none --opt device=`pwd` --opt o=uid=root,gid=root --opt o=bind
+  chmod 644 *
   cd ..
 }
 
