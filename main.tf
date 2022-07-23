@@ -29,7 +29,7 @@ resource "hsdp_container_host" "nifi" {
   }
 }
 
-resource "hsdp_container_host_exec" "instance" {
+resource "ssh_resource" "instance" {
 
   triggers = {
     instance_ids = hsdp_container_host.nifi.id
